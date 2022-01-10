@@ -6,11 +6,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+from .config import Settings
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./dbmovie.db"
-# SQLALCHEMY_DATABASE_URL = "postgresql://movie:password@localhost:5432/dbmovie"
-# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://movie:password@localhost/dbmovie"
-# SQLALCHEMY_DATABASE_URL = "mariadb+mariadbconnector://movie:password@localhost/dbmovie"
+settings = Settings()
+
+SQLALCHEMY_DATABASE_URL = settings.database_url
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, 

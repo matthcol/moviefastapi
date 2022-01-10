@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+e2e tests for the movieapi
+
 Created on Mon Jan 10 23:44:51 2022
 
 @author: Matthias
@@ -11,8 +13,11 @@ from sqlalchemy.orm import sessionmaker
 
 from ..database import Base
 from ..main import app, get_db
+from ..config import Settings
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./dbmovietest.db"
+settings = Settings()
+
+SQLALCHEMY_DATABASE_URL = settings.database_test_url
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}, echo=True 
@@ -60,3 +65,6 @@ def test_create_movie():
     assert data["title"] == title
     assert data["year"] == year
     assert data["id"] == movie_id
+    
+    # cleaning data
+    # TODO
