@@ -38,6 +38,15 @@ def get_db():
 def create_movie(movie: schemas.MovieCreate, db: Session = Depends(get_db)):
     return crud.create_movie(db=db, movie=movie)
 
+@app.put("/api/movies/", response_model=schemas.Movie)
+def update_movie(movie: schemas.Movie, db: Session = Depends(get_db)):
+    # TODO
+    return movie
+
+@app.delete("/api/movies/{movie_id}", response_model=schemas.Movie)
+def delete_movie(movie_id: int, db: Session = Depends(get_db)):
+    raise HTTPException(status_code=501, detail="Not Implemented Yet")
+
 
 @app.get("/api/movies/", response_model=List[schemas.Movie])
 def read_movies(skip: Optional[int] = 0, limit: Optional[int] = 100, db: Session = Depends(get_db)):
@@ -56,3 +65,12 @@ def read_movie(movie_id: int, db: Session = Depends(get_db)):
 @app.get("/api/movies/byTitle", response_model=List[schemas.Movie])
 def read_movies_by_title(t: str, db: Session = Depends(get_db)):
     return crud.get_movies_by_title_part(db=db, title=t)
+
+@app.get("/api/movies/byTitleYear", response_model=List[schemas.Movie])
+def read_movies_by_title_year(t: str, y: int, db: Session = Depends(get_db)):
+    raise HTTPException(status_code=501, detail="Not Implemented Yet")
+
+@app.get("/api/movies/byYearRange", response_model=List[schemas.Movie])
+def read_movies_by_year_range(ymi: Optional[int] = None, yma: Optional[int] = None, db: Session = Depends(get_db)):
+    raise HTTPException(status_code=501, detail="Not Implemented Yet")
+	

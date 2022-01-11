@@ -33,7 +33,7 @@ def get_movie(db: Session, movie_id: int):
     # read from the database (get method read from cache)
     # return object read or None if not found
     db_movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
-    logger.debug(f"Movie retrieved from DB: {db_movie.title}")
+    # logger.debug(f"Movie retrieved from DB: {db_movie.title}")
     return db_movie;
 
 def get_movies(db: Session, skip: int = 0, limit: int = 100):
