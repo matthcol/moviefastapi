@@ -2,10 +2,8 @@
 model.py : database row <-> objet python
 """
 from sqlalchemy import Column, Integer, String, SmallInteger
-from sqlalchemy.orm import relationship
 
 from .database import Base
-
 
 
 class Movie(Base):
@@ -16,4 +14,4 @@ class Movie(Base):
     year = Column(SmallInteger, nullable=False)
     duration = Column(SmallInteger, nullable=True)
     synopsis = Column(String(length=4000), nullable=True)
-    posterUri = Column(String(length=500), nullable=True)
+    posterUri = Column('poster_uri', String(length=500), nullable=True)
