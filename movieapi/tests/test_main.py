@@ -240,7 +240,6 @@ def test_read_movies_by_title_year(init_data):
     assert movie_read["year"] == year
     
 def test_read_movies_by_year_range_1YearMin(init_data):
-    yearMin = 1950
     yearMax = 2020
     # when 
     response = client.get(f"/api/movies/byYearRange?ymi={yearMax}")
@@ -272,7 +271,6 @@ def test_read_movies_by_year_range_2Years(init_data):
 
 def test_read_movies_by_year_range_1YMax(init_data):
     yearMin = 1950
-    yearMax = 2020    
     # when 
     response = client.get(f"/api/movies/byYearRange?yma={yearMin}")
     assert response.status_code == 200, response.text
@@ -284,7 +282,7 @@ def test_read_movies_by_year_range_1YMax(init_data):
     
 def test_read_movies_by_year_range_NoYear(init_data):
     # when 
-    response = client.get(f"/api/movies/byYearRange")
+    response = client.get("/api/movies/byYearRange")
     # then : not allowed
     assert response.status_code == 405, response.text
     

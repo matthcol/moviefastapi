@@ -37,7 +37,7 @@ def update_movie(db: Session, movie: schemas.Movie):
         db_movie.year = movie.year
         db_movie.duration = movie.duration
         db_movie.synopsis = movie.synopsis
-        db_movie.posterUri = movie.synopsis
+        db_movie.posterUri = movie.posterUri
         # validate update in db
         db.commit()
     # return updated object or None if not found

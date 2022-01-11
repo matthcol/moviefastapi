@@ -81,5 +81,7 @@ def read_movies_by_year_range(ymi: Optional[int] = None, yma: Optional[int] = No
         return crud.get_movies_by_year_max(db=db, year_max=yma)
     elif ymi is not None and yma is None:
         return crud.get_movies_by_year_min(db=db, year_min=ymi)
+    else:
+        raise HTTPException(status_code=405, detail="Selection by range not allowed without any year")
         
 	
