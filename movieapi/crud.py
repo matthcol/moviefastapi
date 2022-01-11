@@ -81,4 +81,30 @@ def get_movies_by_title_part(db: Session, title: str):
             .order_by(models.Movie.title, models.Movie.year)                       \
             .all()
 
+def get_movies_by_title_year(db: Session, title: str, year: int):
+    return _get_movies_by_predicate(
+                    models.Movie.title == title, 
+                    models.Movie.year == year,
+                    db=db)                                      \
+            .order_by(models.Movie.year, models.Movie.title)    \
+            .all()
+
+def get_movies_by_year_range(db: Session, year_min: int, year_max: int):
+    predicate = between(models.Movie.year, year_min, year_max)
+    return _get_movies_by_predicate(predicate, db=db)                  \
+            .order_by(models.Movie.year, models.Movie.title)    \
+            .all()
+
+def get_movies_by_year_max(db: Session, year_max: int):
+    predicate = models.Movie.year <= year_max
+    return _get_movies_by_predicate(predicate, db=db)                  \
+            .order_by(models.Movie.year, models.Movie.title)    \
+            .all()
+
+
+def get_movies_by_year_min(db: Session, year_min: int):
+    predicate = models.Movie.year >= year_min
+    return _get_movies_by_predicate(predicate, db=db)                  \
+            .order_by(models.Movie.year, models.Movie.title)    \
+            .all()
 

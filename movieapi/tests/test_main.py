@@ -268,7 +268,7 @@ def test_read_movies_by_year_range_2Years(init_data):
     assert "Spectre" in titles
     assert "Casino Royale" in titles
     assert "Skyfall" in titles
-    assert "The Man Who Knew Toot Much" in titles
+    assert "The Man Who Knew Too Much" in titles
 
 def test_read_movies_by_year_range_1YMax(init_data):
     yearMin = 1950
