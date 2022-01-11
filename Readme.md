@@ -17,7 +17,7 @@ pip(3) install -r requirements-test.txt
 ### c. extra modules for other db
 
 - pyscopg2 : postgresql
-- mariadb connector : https://mariadb.com/downloads/connectors/connectors-data-access/python-connector
+- pymysql : mysql ou mariadb
 
 ## Test api
 
