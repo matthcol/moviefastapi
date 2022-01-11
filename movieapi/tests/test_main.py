@@ -19,9 +19,18 @@ settings = Settings()
 
 SQLALCHEMY_DATABASE_URL = settings.database_test_url
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}, echo=True 
-)
+if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL, 
+        connect_args={"check_same_thread": False},   # only for SQLITE
+        echo=True       # to see SQL queries in logs
+    )
+else:
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL, 
+        echo=True       # to see SQL queries in logs
+    )
+    
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
