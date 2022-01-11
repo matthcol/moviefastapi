@@ -29,6 +29,33 @@ def create_movie(db: Session, movie: schemas.MovieCreate):
     db.refresh(db_movie)
     return db_movie
 
+def update_movie(db: Session, movie: schemas.Movie):
+    db_movie = db.query(models.Movie).filter(models.Movie.id == movie.id).first()
+    if db_movie is not None:
+        # update data from db
+        db_movie.title = movie.title
+        db_movie.year = movie.year
+        db_movie.duration = movie.duration
+        db_movie.synopsis = movie.synopsis
+        db_movie.posterUri = movie.synopsis
+        # validate update in db
+        db.commit()
+    # return updated object or None if not found
+    return db_movie
+
+def delete_movie(db: Session, movie_id: int):
+     db_movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
+     if db_movie is not None:
+         # delete object from ORM
+         db.delete(db_movie)
+         # validate delete in db
+         db.commit()
+     # return deleted object or None if not found
+     return db_movie
+
+
+# SELECT Queries
+
 def get_movie(db: Session, movie_id: int):
     # read from the database (get method read from cache)
     # return object read or None if not found
