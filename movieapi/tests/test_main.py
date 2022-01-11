@@ -7,6 +7,7 @@ Created on Mon Jan 10 23:44:51 2022
 @author: Matthias
 """
 
+import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -36,7 +37,7 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 
 Base.metadata.create_all(bind=engine)
 
-
+# override db conf from main api
 def override_get_db():
     try:
         db = TestingSessionLocal()
@@ -44,13 +45,19 @@ def override_get_db():
     finally:
         db.close()
 
+# create database before ech test, dropt it after
+@pytest.fixture()
+def test_db():
+    Base.metadata.create_all(bind=engine)
+    yield
+    Base.metadata.drop_all(bind=engine)
 
 app.dependency_overrides[get_db] = override_get_db
 
 client = TestClient(app)
 
 
-def test_create_movie():
+def test_create_movie(test_db):
     # facts
     title =  "Nobody"
     year = 2021
@@ -75,5 +82,3 @@ def test_create_movie():
     assert data["year"] == year
     assert data["id"] == movie_id
     
-    # cleaning data
-    # TODO
