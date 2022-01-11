@@ -164,7 +164,8 @@ def test_delete_movie(test_db):
     assert response.status_code == 404
     
     # delete previuously removed movie
-    response = client.delete(f"/api/movies/byId/{movie_id}")
+    response = client.delete(
+        f"/api/movies/{movie_id}")
     assert response.status_code == 404
     
     
